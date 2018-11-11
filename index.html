@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+
+
+<table class="list">
+
+</table>
+
+<div>
+
+</div>
+<script>
+    // $(document).ready(function () {
+    //     $.getJSON('./dongjian.json', function (doc) {
+    //         let data = doc.list;
+    //         // console.log(data);
+    //         if (!data.length) {
+    //             return;
+    //         }
+    //         let listData = [];
+    //         for (let i = 0, j = data.length; i < j; i++) {
+    //             let lists = [];
+    //             if (!!data[i].app_msg_ext_info.title) {
+    //                 let obj = {};
+    //                 obj.position = 1;
+    //                 obj.title = data[i].app_msg_ext_info.title;
+    //                 obj.cover = data[i].app_msg_ext_info.cover;
+    //                 obj.conurl = data[i].app_msg_ext_info.content_url;
+    //                 obj.time = data[i].comm_msg_info.datetime;
+    //                 lists.push(obj);
+    //                 if (data[i].app_msg_ext_info.multi_app_msg_item_list.length) {
+    //                     let newDatas = data[i].app_msg_ext_info.multi_app_msg_item_list;
+    //                     for (let m = 0, n = newDatas.length; m < n; m++) {
+    //                         let newObj = {};
+    //                         let mm = m;
+    //                         newObj.position = mm + 2;
+    //                         newObj.title = newDatas[m].title;
+    //                         newObj.cover = newDatas[m].cover;
+    //                         newObj.conurl = newDatas[m].content_url;
+    //                         newObj.time = data[i].comm_msg_info.datetime;
+    //                         lists.push(newObj);
+    //                     }
+    //                 }
+    //             } else {
+    //                 if (data[i].app_msg_ext_info.multi_app_msg_item_list.length) {
+    //                     let newDatas = data[i].app_msg_ext_info.multi_app_msg_item_list;
+    //                     for (let m = 0, n = newDatas.length; m < n; m++) {
+    //                         let newObj = {};
+    //                         newObj.position = m + 2;
+    //                         newObj.title = newDatas[m].title;
+    //                         newObj.cover = newDatas[m].cover;
+    //                         newObj.conurl = newDatas[m].content_url;
+    //                         newObj.time = data[i].comm_msg_info.datetime;
+    //                         lists.push(newObj);
+    //                     }
+    //                 }
+    //             }
+    //
+    //             listData.push(lists);
+    //         }
+    //         // console.log(listData);
+    //
+    //         $.ajax({
+    //             url: "./dongjian.php",
+    //             method:'post',
+    //             data: {
+    //                 listData
+    //             },
+    //             success: (res) => {
+    //                 console.log(res)
+    //             },
+    //             error: (err) => {
+    //                 console.log(err)
+    //             }
+    //         })
+    //     })
+    // })
+
+    $.ajax({
+        url: "getdata_dongjian.php",
+        method: "get",
+        success: (res) => {
+            console.log(res.length);
+            return;
+            let data = res, str = '';
+            for (let i = 0, j = data.length; i < j; i++) {
+                console.log(i);
+                str += '<tr><td>' + data[i].time + '</td><td>' + data[i].position + '</td><td><a href="' + data[i].conurl + '">' + data[i].title + '</a></td></tr>';
+            }
+            $('.list').html(str);
+        },
+        error: (err) => {
+            console.log(err)
+        }
+    })
+</script>
+</body>
+</html>
